@@ -2,69 +2,39 @@ import sys
 import pygame
 import random
 
-#Colours
-BLACK=0,0,0
-BLUE=0,33,115
-YELLOW=255,255,0
-RED=255,0,0
-WHITE=255,255,255
+from flock import Flock
+# Colours
+BLACK = 0, 0, 0
+BLUE = 0, 33, 115
+YELLOW = 255, 255, 0
+RED = 255, 0, 0
+WHITE = 255, 255, 255
 
-#INITIAL Window
-width,height=700,500
-title='First window'
+# INITIAL Window
+width, height = 700, 500
+title = 'First window'
 pygame.init()
-screen=pygame.display.set_mode((width,height)) #init screen for display
-pygame.display.set_caption(title) #set window title
+screen = pygame.display.set_mode((width, height))  # init screen for display
+pygame.display.set_caption(title)  # set window title
 
-#BOID
-class Boid(object):
-    def __init__(self):
-        self.x=random.randint(50,width-50)
-        self.y=random.randint(50,height-50)
-        #self.speedx=random.uniform(-0.5,0.5)
-        #self.speedy=random.uniform(-0.5,0.5)
-        self.colour=random.randint(0,255)
-
-        self.dirx=random.choice([1.0,-1.0])
-        self.diry=random.choice([1.0,-1.0])
-        self.speedx=self.dirx*random.uniform(0,0.5)
-        self.speedy=self.diry*random.uniform(0,0.5)
-    
-    def drawBoid(self):
-        pygame.draw.polygon(screen,self.colour, [[self.x, self.y], [self.x+20, self.y], [self.x+10,self.y-30]], 4)
-        self.x+=self.speedx
-        self.y+=self.speedy
-        if self.x+20>=width or self.x<=0:
-            self.speedx*=-1
-            self.colour=(random.randint(0,255),random.randint(100,255),random.randint(0,255))
-        if self.y>=height or self.y-30<=0:
-            self.speedy*=-1
-            self.colour=(random.randint(0,255),random.randint(100,255),random.randint(0,255))
-
-#class Flock:
-        
-numberOfBoid=0
-#GAMEPLAY
 def game_play():
-    boidList=[]
+    boidList = []
     global numberOfBoid
-    while numberOfBoid<10:
-        new_Boid=Boid()
+    while numberOfBoid < 10:
+        new_Boid = Boid()
         boidList.append(new_Boid)
-        numberOfBoid+=1
+        numberOfBoid += 1
 
     while True:
         for event in pygame.event.get():
-            if event.type==pygame.QUIT:
+            if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-                
+
         for boid in boidList:
             boid.drawBoid()
         pygame.display.update()
         screen.fill(BLACK)
 
-
-#RUNNING
+# RUNNING
 game_play()
-    
