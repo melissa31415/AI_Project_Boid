@@ -1,0 +1,10 @@
+import sys
+import pygame
+import random
+
+from boid import Boid
+
+# create list
+
+class Flock(object):
+    def __index__(self):
